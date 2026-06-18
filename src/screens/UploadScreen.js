@@ -52,7 +52,6 @@ export default function UploadScreen() {
     try {
       setEnviando(true);
 
-      // Tenta resolver o coordenador do curso caso não venha na categoria
       let idCoordenador = categoria.coordenador_idCoordenador ?? null;
       if (!idCoordenador && categoria.idCurso) {
         try {
@@ -63,7 +62,6 @@ export default function UploadScreen() {
         }
       }
 
-      // Cria a atividade complementar
       const respostaAtividade = await api.post('/atividades', {
         codigo: `ATV-${Date.now()}`,
         titulo: categoria.categoria,
@@ -75,7 +73,6 @@ export default function UploadScreen() {
 
       const idAtividade = respostaAtividade.data.id;
 
-      // Envia a submissão com o certificado
       const formData = new FormData();
       formData.append('certificado', {
         uri: imagem.uri,
